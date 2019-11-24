@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TimeDisplayer from "./TimeDisplayer";
 
 function App() {
+
+  const [currentTime, setCurrentTime] = useState((new Date()).toISOString());
+
+  useEffect(() => {
+    setInterval(() => {
+      setCurrentTime( (new Date()).toISOString() )
+    }, 100)
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -16,8 +26,8 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
         </a>
+       <TimeDisplayer currentTime={currentTime}/>
       </header>
     </div>
   );
