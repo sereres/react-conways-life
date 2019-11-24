@@ -1,10 +1,20 @@
 import React, {useState} from "react";
 import './CellGrid.css'
 import Cell from "./Cell";
+import UpdateButton from "./UpdateButton";
 
 class CellGrid extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        let initialStates = this.makeClearState();
+        this.state = {cellStates: initialStates}
+
+        if(props.updateReceiver) {
+            props.updateReceiver(this.setNextState)
+        }
+    }
+
+    makeClearState() {
         let initialStates = [];
         for (let i = 0; i < this.props.height; i++) {
             initialStates[i] = [];
@@ -12,7 +22,12 @@ class CellGrid extends React.Component {
                 initialStates[i][j] = false
             }
         }
-        this.state = {cellStates: initialStates}
+        return initialStates;
+    }
+
+    setNextState() {
+        let nextState = this.makeClearState()
+        this.setState({cellStates: nextState})
     }
 
     createCell(row_number, cell_number) {
@@ -58,6 +73,7 @@ class CellGrid extends React.Component {
 
         return <div>
             {rows}
+            <UpdateButton onClick={() => {this.setNextState()}}/>
         </div>
     }
 

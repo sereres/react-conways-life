@@ -2,6 +2,9 @@ import {configure, render, shallow, mount} from "enzyme";
 import React from "react";
 import CellGrid from "./CellGrid";
 import Adapter from "enzyme-adapter-react-16";
+import UpdateButton from "./UpdateButton";
+import App from "./App";
+
 
 configure({adapter: new Adapter()});
 
@@ -49,5 +52,23 @@ describe('cell grid', () => {
         expect(cellgrid.state().cellStates[3][3]).toBe(false);
 
         jest.clearAllMocks();
+    });
+
+    it('center cell of 3x3 false grid has 0 true neighbors', () =>{
+        const cellgrid = shallow(<CellGrid width={3} height = {3}/>);
+        const aCell = cellgrid.find('#cell-1-1');
+        aCell.simulate('click');
+
+
+        let updateButton = cellgrid.find('UpdateButton').at(0);
+        updateButton.simulate('click');
+
+
+        expect(cellgrid.state().cellStates[1][1]).toBe(false);
+    });
+
+    it('has an update button', () => {
+        const grid = shallow(<CellGrid height={1} width={1}/>);
+        expect (grid.find("UpdateButton").length).toBe(1)
     })
 });
