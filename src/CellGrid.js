@@ -92,6 +92,9 @@ class CellGrid extends React.Component {
         this.setState({cellStates: nextState})
     }
 
+    countNeighbors(state, x, y) {
+        return 2;
+    }
 }
 
 export default CellGrid;
