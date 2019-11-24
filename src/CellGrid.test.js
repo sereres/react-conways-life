@@ -11,7 +11,7 @@ describe('cell grid', () => {
     });
 
     it('has nunmber of grid containers equal to rows', () => {
-        const height = 3
+        const height = 3;
         const cellgrid = shallow(<CellGrid width={2} height={height}/>)
         expect(cellgrid.find('.grid-container').length).toBe(height)
     });
@@ -20,13 +20,13 @@ describe('cell grid', () => {
         const width = 4;
         const cellgrid = shallow(<CellGrid width={width} height={4}/>);
         const firstRow = cellgrid.find('.grid-container').at(0);
-        expect(firstRow.find('.grid-item').length).toBe(width)
+        expect(firstRow.find('Cell').length).toBe(width)
     });
 
     it('row has number of grid items equal to width 8', () => {
         const width = 8;
         const cellgrid = shallow(<CellGrid width={width} height={4}/>);
         const firstRow = cellgrid.find('.grid-container').at(0);
-        expect(firstRow.find('.grid-item').length).toBe(width)
+        expect(firstRow.find('Cell').length).toBe(width)
     });
 });

@@ -1,9 +1,10 @@
 import React from "react";
 import './CellGrid.css'
+import Cell from "./Cell";
 
 
 function createCell(row_number, cell_number) {
-    return <div key={"cell-"+row_number+"-"+cell_number} className={"grid-item"}/>
+    return <Cell key={"cell-"+row_number+"-"+cell_number} alive={false}/>
 }
 
 function createRow(row_number, width) {

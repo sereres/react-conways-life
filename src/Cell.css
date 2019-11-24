@@ -1,0 +1,14 @@
+.alive-true {
+    background-color: blue;
+    height:40px;
+    width:40px;
+    grid-row: 1;
+}
+
+.alive-false, .grid-item {
+    background-color: red;
+    height:40px;
+    width:40px;
+    grid-row: 1;
+
+}
