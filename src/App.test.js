@@ -11,20 +11,4 @@ describe('App rendering', () => {
             shallow(<App/>)
         }
     );
-
-    it('has a TimeDisplayer', () => {
-        const app = shallow(<App/>);
-        expect(app.find('TimeDisplayer').length).toBe(1)
-    });
-
-  it('passes prop to TimeDisplayer of date from Date()', () => {
-    const dateForTest = new Date(2011, 11, 11);
-    global.Date = jest.fn(() => dateForTest);
-
-    const expectedDateProp =  dateForTest.toISOString();
-
-    const app = shallow(<App/>);
-    expect(app.find('TimeDisplayer').at(0).props().currentTime)
-        .toBe(expectedDateProp)
-  })
 });
