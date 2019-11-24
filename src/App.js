@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <CellGrid height={5} width={3}/>
+          <CellGrid height={16} width={16}/>
       </header>
     </div>
   );

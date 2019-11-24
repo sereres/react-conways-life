@@ -31,22 +31,22 @@ describe('cell grid', () => {
     });
 
     it('when cell is clicked, cell prop is modified',  () => {
-        let thisState = false;
-        let mySpy = jest.fn();
-
-        const useStateSpy = jest.spyOn(React, 'useState');
-
-        useStateSpy.mockImplementation (
-            (x) => [x, mySpy]
-            );
-
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
         const aCell = cellgrid.find('#cell-3-3');
 
         aCell.simulate('click');
 
-        expect(useStateSpy).toHaveBeenCalledTimes(1);
-        expect(mySpy.mock.calls[0][0][3][3]).toBe(true);
+        expect(cellgrid.state().cellStates[3][3]).toBe(true);
+    });
+
+    it('when cell is clicked twice, cell prop is false',  () => {
+        const cellgrid = mount(<CellGrid width={4} height={4}/>);
+        const aCell = cellgrid.find('#cell-3-3');
+
+        aCell.simulate('click');
+        aCell.simulate('click');
+
+        expect(cellgrid.state().cellStates[3][3]).toBe(false);
 
         jest.clearAllMocks();
     })
