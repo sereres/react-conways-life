@@ -84,7 +84,7 @@ describe('cell grid', () => {
         expect(cellgrid.state().cellStates[1][1]).toBe(true);
     });
 
-    xit('on 4x4 center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+    it('on 4x4 center cell of 3x3 grid becomes true if it has three true neighbors', () => {
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
         touchCell(cellgrid, 1, 1);
         touchCell(cellgrid, 1, 2);

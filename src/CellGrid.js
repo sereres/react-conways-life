@@ -9,7 +9,7 @@ class CellGrid extends React.Component {
         let initialStates = this.makeClearState();
         this.state = {cellStates: initialStates};
 
-        if(props.updateReceiver) {
+        if (props.updateReceiver) {
             props.updateReceiver(this.setNextState)
         }
     }
@@ -22,7 +22,9 @@ class CellGrid extends React.Component {
 
         return <div>
             {rows}
-            <UpdateButton onClick={() => {this.setNextState()}}/>
+            <UpdateButton onClick={() => {
+                this.setNextState()
+            }}/>
         </div>
     }
 
@@ -83,17 +85,32 @@ class CellGrid extends React.Component {
 
     setNextState() {
         let nextState = this.copyState(this.state.cellStates);
-        if (!this.state.cellStates[0][0]) {
-            nextState = this.makeClearState()
-        } else {
-            nextState = this.makeUniformState(true)
-        }
+        for (let i = 0; i < this.props.height; i++) {
+            for (let j = 0; j < this.props.width; j++) {
+                const neighbors = this.countNeighbors(this.state.cellStates, i, j);
+                if (neighbors >= 2) {
+                    nextState[i][j] = true;
+                }
+                if( neighbors === 0 ){
+                    nextState[i][j] = false;
+                }
+            }
 
+        }
         this.setState({cellStates: nextState})
     }
 
+
     countNeighbors(state, x, y) {
-        return 2;
+        let neighbors = 0;
+        for (let i = 0; i < this.props.height; i++) {
+            for (let j = 0; j < this.props.width; j++) {
+                if (state[i][j] && i !== x && j !== y) {
+                    neighbors++;
+                }
+            }
+        }
+        return neighbors;
     }
 }
 
