@@ -14,33 +14,34 @@ class CellGrid extends React.Component {
         }
     }
 
-    makeClearState() {
-        let initialStates = [];
+    render() {
+        const rows = [];
         for (let i = 0; i < this.props.height; i++) {
-            initialStates[i] = [];
-            for (let j = 0; j < this.props.width; j++) {
-                initialStates[i][j] = false
-            }
+            rows.push(this.createRow(i))
         }
-        return initialStates;
+
+        return <div>
+            {rows}
+            <UpdateButton onClick={() => {this.setNextState()}}/>
+        </div>
     }
 
-    setNextState() {
-        let nextState = this.makeClearState()
-        this.setState({cellStates: nextState})
+    createRow(row_number) {
+        const cells = [];
+        for (let i = 0; i < this.props.width; i++) {
+            cells.push(this.createCell(row_number, i))
+        }
+
+        return <div key={"row-number-" + row_number} className={"grid-container"}>
+            {cells}
+        </div>
     }
 
     createCell(row_number, cell_number) {
         let aliveOrDead = this.state.cellStates[row_number][cell_number];
 
         const setAlive = () => {
-            let newState = [];
-            for (let i = 0; i < this.props.height; i++) {
-                newState[i] = [];
-                for (let j = 0; j < this.props.width; j++) {
-                    newState[i][j] = this.state.cellStates[i][j]
-                }
-            }
+            let newState = this.copyState(this.state.cellStates);
             newState[row_number][cell_number] = !aliveOrDead;
             this.setState({cellStates: newState});
             console.log("I was clicked " + row_number + " " + cell_number);
@@ -54,27 +55,41 @@ class CellGrid extends React.Component {
     }
 
 
-    createRow(row_number) {
-        const cells = [];
-        for (let i = 0; i < this.props.width; i++) {
-            cells.push(this.createCell(row_number, i))
+    copyState(state) {
+        let copiedState = [];
+        for (let i = 0; i < this.props.height; i++) {
+            copiedState[i] = [];
+            for (let j = 0; j < this.props.width; j++) {
+                copiedState[i][j] = state[i][j]
+            }
         }
-
-        return <div key={"row-number-" + row_number} className={"grid-container"}>
-            {cells}
-        </div>
+        return copiedState;
     }
 
-    render() {
-        const rows = [];
+    makeClearState() {
+        return this.makeUniformState(false)
+    }
+
+    makeUniformState(uniformValue) {
+        let initialStates = [];
         for (let i = 0; i < this.props.height; i++) {
-            rows.push(this.createRow(i))
+            initialStates[i] = [];
+            for (let j = 0; j < this.props.width; j++) {
+                initialStates[i][j] = uniformValue
+            }
+        }
+        return initialStates;
+    }
+
+    setNextState() {
+        let nextState = this.copyState(this.state.cellStates)
+        if (!this.state.cellStates[0][0]) {
+            nextState = this.makeClearState()
+        } else {
+            nextState = this.makeUniformState(true)
         }
 
-        return <div>
-            {rows}
-            <UpdateButton onClick={() => {this.setNextState()}}/>
-        </div>
+        this.setState({cellStates: nextState})
     }
 
 }

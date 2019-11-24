@@ -8,6 +8,11 @@ import App from "./App";
 
 configure({adapter: new Adapter()});
 
+function touchCell(cellgrid, x, y) {
+    const aCell1 = cellgrid.find("#cell-" + x + "-" + y);
+    aCell1.simulate('click');
+}
+
 describe('cell grid', () => {
     it('renders without crashing', () => {
         shallow(<CellGrid width={2} height={2}/>)
@@ -33,19 +38,22 @@ describe('cell grid', () => {
         expect(firstRow.find('Cell').length).toBe(width)
     });
 
-    it('when cell is clicked, cell prop is modified',  () => {
+    it('when cell is clicked, cell prop is modified', () => {
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
-        const aCell = cellgrid.find('#cell-3-3');
-
-        aCell.simulate('click');
+        touchCell(cellgrid, 3, 3)
 
         expect(cellgrid.state().cellStates[3][3]).toBe(true);
     });
 
-    it('when cell is clicked twice, cell prop is false',  () => {
-        const cellgrid = mount(<CellGrid width={4} height={4}/>);
-        const aCell = cellgrid.find('#cell-3-3');
+    it('has an update button', () => {
+        const grid = shallow(<CellGrid height={1} width={1}/>);
+        expect(grid.find("UpdateButton").length).toBe(1)
+    });
 
+    it('when cell is clicked twice, cell prop is false', () => {
+        const cellgrid = mount(<CellGrid width={4} height={4}/>);
+
+        const aCell = cellgrid.find('#cell-3-3');
         aCell.simulate('click');
         aCell.simulate('click');
 
@@ -54,10 +62,9 @@ describe('cell grid', () => {
         jest.clearAllMocks();
     });
 
-    it('center cell of 3x3 false grid has 0 true neighbors', () =>{
-        const cellgrid = shallow(<CellGrid width={3} height = {3}/>);
-        const aCell = cellgrid.find('#cell-1-1');
-        aCell.simulate('click');
+    it('center cell of 3x3 becomes false if it has no true neighbors', () => {
+        const cellgrid = shallow(<CellGrid width={3} height={3}/>);
+        touchCell(cellgrid, 1, 1)
 
 
         let updateButton = cellgrid.find('UpdateButton').at(0);
@@ -67,8 +74,16 @@ describe('cell grid', () => {
         expect(cellgrid.state().cellStates[1][1]).toBe(false);
     });
 
-    it('has an update button', () => {
-        const grid = shallow(<CellGrid height={1} width={1}/>);
-        expect (grid.find("UpdateButton").length).toBe(1)
-    })
+    it('center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+        const cellgrid = shallow(<CellGrid width={3} height={3}/>);
+        touchCell(cellgrid, 0, 0);
+        touchCell(cellgrid, 0, 1);
+        touchCell(cellgrid, 0, 2);
+
+        let updateButton = cellgrid.find('UpdateButton').at(0);
+        updateButton.simulate('click');
+
+        expect(cellgrid.state().cellStates[1][1]).toBe(true);
+    });
+
 });
