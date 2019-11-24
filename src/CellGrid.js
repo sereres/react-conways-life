@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './CellGrid.css'
 import Cell from "./Cell";
 import UpdateButton from "./UpdateButton";
@@ -7,7 +7,7 @@ class CellGrid extends React.Component {
     constructor(props) {
         super(props);
         let initialStates = this.makeClearState();
-        this.state = {cellStates: initialStates}
+        this.state = {cellStates: initialStates};
 
         if(props.updateReceiver) {
             props.updateReceiver(this.setNextState)
@@ -82,7 +82,7 @@ class CellGrid extends React.Component {
     }
 
     setNextState() {
-        let nextState = this.copyState(this.state.cellStates)
+        let nextState = this.copyState(this.state.cellStates);
         if (!this.state.cellStates[0][0]) {
             nextState = this.makeClearState()
         } else {

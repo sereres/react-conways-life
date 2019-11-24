@@ -11,10 +11,10 @@ describe('update button', () => {
         let hasBeenClicked = false;
         const onClickFunction = () => {
             hasBeenClicked = true;
-        }
+        };
         let updateButton = shallow(<UpdateButton onClick={onClickFunction}/>);
 
-        updateButton.simulate('click')
+        updateButton.simulate('click');
         expect(hasBeenClicked).toBe(true)
     })
 

@@ -1,9 +1,7 @@
-import {configure, render, shallow, mount} from "enzyme";
+import {configure, shallow, mount} from "enzyme";
 import React from "react";
 import CellGrid from "./CellGrid";
 import Adapter from "enzyme-adapter-react-16";
-import UpdateButton from "./UpdateButton";
-import App from "./App";
 
 
 configure({adapter: new Adapter()});
@@ -20,7 +18,7 @@ describe('cell grid', () => {
 
     it('has nunmber of grid containers equal to rows', () => {
         const height = 3;
-        const cellgrid = shallow(<CellGrid width={2} height={height}/>)
+        const cellgrid = shallow(<CellGrid width={2} height={height}/>);
         expect(cellgrid.find('.grid-container').length).toBe(height)
     });
 
@@ -40,7 +38,7 @@ describe('cell grid', () => {
 
     it('when cell is clicked, cell prop is modified', () => {
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
-        touchCell(cellgrid, 3, 3)
+        touchCell(cellgrid, 3, 3);
 
         expect(cellgrid.state().cellStates[3][3]).toBe(true);
     });
@@ -64,7 +62,7 @@ describe('cell grid', () => {
 
     it('center cell of 3x3 becomes false if it has no true neighbors', () => {
         const cellgrid = shallow(<CellGrid width={3} height={3}/>);
-        touchCell(cellgrid, 1, 1)
+        touchCell(cellgrid, 1, 1);
 
 
         let updateButton = cellgrid.find('UpdateButton').at(0);
