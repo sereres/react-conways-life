@@ -136,5 +136,13 @@ describe('neighbor counting function', () => {
         expect(cellGrid.countNeighbors(array, 1, 1)).toBe(8);
     } );
 
+    it('top left of false false true true array has six neighbors', () => {
+        let array =  [[false, false],
+                      [true, true]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 0, 0)).toBe(6);
+
+    });
+
 
 });
