@@ -28,7 +28,7 @@ class CellGrid extends React.Component {
             }}/>
 
             <RunButton onClick={() => {
-                this.setNextState()
+                setInterval(() => {this.setNextState()}, 300)
             }}/>
 
         </div>

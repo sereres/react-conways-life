@@ -81,10 +81,12 @@ describe('cell grid', () => {
 
     xit('clicking run button toggles run state on', () => {
         const cellgrid = mount(<CellGrid width={1} height={1}/>);
-        //const aCell = cellgrid.find(props 'run')
+        const runButton = cellgrid.find('#run-button');
 
         runButton.simulate('click');
-        expect()});
+        expect(cellgrid.state().runToggle).toBe(true);
+        jest.clearAllMocks();
+    });
 
     it('when cell is clicked twice, cell prop is false', () => {
         const cellgrid = mount(<CellGrid width={4} height={4}/>);
