@@ -101,31 +101,23 @@ class CellGrid extends React.Component {
 
     transform(totransform){
         let transformed = [];
-        console.log(totransform.length);
-        console.log(totransform[0].length);
         for (let i = 0; i < totransform[0].length; i++){
             let row = [];
             for (let j = 0; j< totransform.length; j++){
-                //console.log(totransform[i][j]);
                 row.push(totransform[j][i]);
             }
             transformed.push(row);
         }
-        console.log(transformed);
         return transformed;
     }
 
     padrows(topad){
-        console.log(topad);
         let padded = [];
         let height = topad.length;
         let width = topad[0].length;
         for (let j = 0; j < height; j++) {
             let unpaddedrow = [];
-            console.log("a row is");
             unpaddedrow = topad[j];
-            console.log(unpaddedrow);
-
             let row = [];
             for (let i = 0; i < width + 2; i++) {
                 if (i === 0) {
@@ -140,32 +132,22 @@ class CellGrid extends React.Component {
             }
             padded.push(row)
         }
-        console.log(padded);
         return padded;
     }
 
     padArray(startarray){
-        console.log(startarray);
         let paddedrows = this.padrows(startarray);
-        console.log("padded rows");
-        console.log(paddedrows);
 
         let flippedrows = this.transform(paddedrows);
-        console.log("flipped rows");
-        console.log(flippedrows);
 
         let paddedcolumns = this.padrows(flippedrows);
-        console.log("padded columns");
-        console.log(paddedcolumns);
 
         let paddedarray = this.transform(paddedcolumns);
-        console.log("padded array " );
         console.log(paddedarray);
         return paddedarray;
     }
 
     countNeighbors(state, x, y) {
-        console.log(state);
         let neighbors = 0;
         let paddedArray = this.padArray(state);
         for(let i = 0; i < 3; i++){
@@ -178,8 +160,6 @@ class CellGrid extends React.Component {
         if(paddedArray[x+1][y+1]){
             neighbors--;
         }
-
-
         return neighbors;
     }
 }
