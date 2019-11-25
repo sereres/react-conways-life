@@ -3,16 +3,49 @@ import CellGrid from "./CellGrid";
 describe('neighbor counting function', () => {
 
     it('empty array has no neighbors', () => {
-        let array = [false]
+        let array = [false];
         const cellGrid = new CellGrid({height: 1, width: 1});
         expect(cellGrid.countNeighbors(array, 0, 0)).toBe(0);
     });
 
     it('full array has eight neighbors', () => {
-        let array = [true]
+        let array = [true];
         const cellGrid = new CellGrid({height: 1, width: 1});
         expect(cellGrid.countNeighbors(array, 0, 0)).toBe(8);
     });
+
+    it('top left of almost empty array has no neighbors', () => {
+       let array =  [[true, false],
+                     [false, false]];
+       const cellGrid = new CellGrid({height: 2, width: 2});
+       expect(cellGrid.countNeighbors(array, 0, 0)).toBe(0);
+
+    });
+
+    it('top right of almost empty array has two neighbors', () => {
+        let array =  [[true, false],
+                      [false, false]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 0, 1)).toBe(2);
+
+    });
+
+    it('top right of reflected almost empty array has no neighbors', () => {
+        let array =  [[false, true],
+                     [false, false]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 0, 1)).toBe(0);
+
+    });
+
+    it('bottom right of almost empty array has four neighbors', () => {
+        let array =  [[true, false],
+                      [false, false]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 1, 1)).toBe(4);
+
+    });
+
 
     xit('counts center with two neighbors', () => {
         let array = [

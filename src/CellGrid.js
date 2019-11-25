@@ -107,6 +107,19 @@ class CellGrid extends React.Component {
             neighbors = 8;
         }
 
+        if(this.props.height > 1){
+            console.log("state is " + state[x][y]);
+            if(state[x][y]) {
+                neighbors = 0;
+            }
+            else if(x===1){
+                neighbors = 4;
+            }
+            else{
+                neighbors = 2;
+            }
+        }
+
         return neighbors;
     }
 }
