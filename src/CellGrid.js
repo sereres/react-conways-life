@@ -2,6 +2,7 @@ import React from "react";
 import './CellGrid.css'
 import Cell from "./Cell";
 import UpdateButton from "./UpdateButton";
+import RunButton from "./RunButton";
 
 class CellGrid extends React.Component {
     constructor(props) {
@@ -25,6 +26,11 @@ class CellGrid extends React.Component {
             <UpdateButton onClick={() => {
                 this.setNextState()
             }}/>
+
+            <RunButton onClick={() => {
+                this.setNextState()
+            }}/>
+
         </div>
     }
 
@@ -38,6 +44,7 @@ class CellGrid extends React.Component {
             {cells}
         </div>
     }
+
 
     createCell(row_number, cell_number) {
         let aliveOrDead = this.state.cellStates[row_number][cell_number];

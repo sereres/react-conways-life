@@ -2,6 +2,7 @@ import {configure, shallow, mount} from "enzyme";
 import React from "react";
 import CellGrid from "./CellGrid";
 import Adapter from "enzyme-adapter-react-16";
+import RunButton from "./RunButton";
 
 
 configure({adapter: new Adapter()});
@@ -72,6 +73,18 @@ describe('cell grid', () => {
         const grid = shallow(<CellGrid height={1} width={1}/>);
         expect(grid.find("UpdateButton").length).toBe(1)
     });
+
+    it('has a run button', () => {
+        const grid = shallow(<CellGrid height={1} width={1}/>);
+        expect(grid.find("RunButton").length).toBe(1)
+    });
+
+    xit('clicking run button toggles run state on', () => {
+        const cellgrid = mount(<CellGrid width={1} height={1}/>);
+        //const aCell = cellgrid.find(props 'run')
+
+        runButton.simulate('click');
+        expect()});
 
     it('when cell is clicked twice, cell prop is false', () => {
         const cellgrid = mount(<CellGrid width={4} height={4}/>);
