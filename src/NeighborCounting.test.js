@@ -62,7 +62,7 @@ describe('neighbor counting function', () => {
 
     });
 
-    xit('counts center with two neighbors', () => {
+    it('counts center with two neighbors', () => {
         let array = [
             [true, false, false],
             [false, false, false],
@@ -74,7 +74,7 @@ describe('neighbor counting function', () => {
         expect(cellGrid.countNeighbors(array, 1, 1)).toBe(2);
     } );
 
-    xit('counts center with one neighbor', () => {
+    it('counts center with one neighbor', () => {
         let array = [
             [false, false, false],
             [false, false, false],
@@ -86,7 +86,7 @@ describe('neighbor counting function', () => {
         expect(cellGrid.countNeighbors(array, 1, 1)).toBe(1);
     } );
 
-    xit('counts center with one row neighbor', () => {
+    it('counts center with one row neighbor', () => {
         let array = [
             [false, false, true],
             [false, false, false],
@@ -98,7 +98,7 @@ describe('neighbor counting function', () => {
         expect(cellGrid.countNeighbors(array, 1, 1)).toBe(2);
     } );
 
-    xit('counts center with no neighbors',  () => {
+    it('counts center with no neighbors',  () => {
         let array = [
             [false, false, false],
             [false, true, false],
@@ -111,7 +111,7 @@ describe('neighbor counting function', () => {
     } );
 
 
-    xit('counts 3x3 left edge',  () => {
+    it('counts 3x3 left edge',  () => {
         let array = [
             [false, false, false],
             [false, false, false],
@@ -124,7 +124,7 @@ describe('neighbor counting function', () => {
     } );
 
 
-    xit('counts center with full',  () => {
+    it('counts center with full',  () => {
         let array = [
             [true, true, true],
             [true, true, true],
