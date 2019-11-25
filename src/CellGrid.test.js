@@ -159,5 +159,27 @@ describe('cell grid', () => {
         expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
     });
 
+    it('three unconnected neighbors on 4x4 grid turns cell true', () => {
+        const cellgrid = shallow(<CellGrid width={4} height={4}/>);
+
+        const initialState = [
+            [false, false, true, false],
+            [true, false, false, false],
+            [false, true, false, false],
+            [false, false, false, false],
+        ];
+        setInitialState(cellgrid, initialState);
+
+        let updateButton = cellgrid.find('UpdateButton').at(0);
+        updateButton.simulate('click');
+
+        const expectedState = [
+            [false, false, false, false],
+            [false, true, false, false],
+            [false, false, false, false],
+            [false, false, false, false],
+        ];
+        expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
+    });
 
 });
