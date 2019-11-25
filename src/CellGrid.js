@@ -88,10 +88,11 @@ class CellGrid extends React.Component {
         for (let i = 0; i < this.props.height; i++) {
             for (let j = 0; j < this.props.width; j++) {
                 const neighbors = this.countNeighbors(this.state.cellStates, i, j);
+                console.log(neighbors);
                 if (neighbors === 3) {
                     nextState[i][j] = true;
                 }
-                if( neighbors < 2 ){
+                if( neighbors < 2 || neighbors > 3){
                     nextState[i][j] = false;
                 }
             }

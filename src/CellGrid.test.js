@@ -142,5 +142,22 @@ describe('cell grid', () => {
         expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
     });
 
+    it('all true array becomes false', () => {
+        const cellgrid = shallow(<CellGrid width={1} height={1}/>);
+
+        const initialState = [
+            [true]
+        ];
+        setInitialState(cellgrid, initialState);
+
+        let updateButton = cellgrid.find('UpdateButton').at(0);
+        updateButton.simulate('click');
+
+        const expectedState = [
+            [false]
+        ];
+        expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
+    });
+
 
 });
