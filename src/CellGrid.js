@@ -103,12 +103,8 @@ class CellGrid extends React.Component {
     countNeighbors(state, x, y) {
         let neighbors = 0;
 
-        for (let i = 0; i < this.props.height; i++) {
-            for (let j = 0; j < this.props.width; j++) {
-                if (state[i][j] && !(i === x && j === y)) {
-                    neighbors++;
-                }
-            }
+        if(state[0]){
+            neighbors = 8;
         }
 
         return neighbors;
