@@ -97,7 +97,7 @@ describe('cell grid', () => {
         expect(cellgrid.state().cellStates[1][1]).toBe(false);
     });
 
-    xit('center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+    it('true row of 3x3 grid turns whole grid true', () => {
         const cellgrid = shallow(<CellGrid width={3} height={3}/>);
 
         const initialState = [
@@ -111,14 +111,14 @@ describe('cell grid', () => {
         updateButton.simulate('click');
 
         const expectedState = [
-            [false, true, false],
-            [false, true, false],
-            [false, true, false],
+            [true, true, true],
+            [true, true, true],
+            [true, true, true],
         ];
         expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
     });
 
-    xit('on 4x4 center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+    it('on 4x4 grid a true row of 3 becomse a true column of 3', () => {
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
 
         const initialState = [

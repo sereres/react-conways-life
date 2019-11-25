@@ -84,10 +84,11 @@ class CellGrid extends React.Component {
 
     setNextState() {
         let nextState = this.copyState(this.state.cellStates);
+        console.log(nextState);
         for (let i = 0; i < this.props.height; i++) {
             for (let j = 0; j < this.props.width; j++) {
                 const neighbors = this.countNeighbors(this.state.cellStates, i, j);
-                if (neighbors >= 2) {
+                if (neighbors === 3) {
                     nextState[i][j] = true;
                 }
                 if( neighbors < 2 ){
@@ -96,6 +97,7 @@ class CellGrid extends React.Component {
             }
 
         }
+        console.log(nextState);
         this.setState({cellStates: nextState})
     }
 
@@ -143,7 +145,7 @@ class CellGrid extends React.Component {
         let paddedcolumns = this.padrows(flippedrows);
 
         let paddedarray = this.transform(paddedcolumns);
-        console.log(paddedarray);
+        //console.log(paddedarray);
         return paddedarray;
     }
 
