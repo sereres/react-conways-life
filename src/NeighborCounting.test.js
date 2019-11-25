@@ -3,13 +3,13 @@ import CellGrid from "./CellGrid";
 describe('neighbor counting function', () => {
 
     it('empty array has no neighbors', () => {
-        let array = [false];
+        let array = [[false]];
         const cellGrid = new CellGrid({height: 1, width: 1});
         expect(cellGrid.countNeighbors(array, 0, 0)).toBe(0);
     });
 
     it('full array has eight neighbors', () => {
-        let array = [true];
+        let array = [[true]];
         const cellGrid = new CellGrid({height: 1, width: 1});
         expect(cellGrid.countNeighbors(array, 0, 0)).toBe(8);
     });
@@ -46,6 +46,21 @@ describe('neighbor counting function', () => {
 
     });
 
+    it('bottom left of reflected almost empty array has four neighbors', () => {
+        let array =  [[false, true],
+                      [false, false]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 1, 0)).toBe(4);
+
+    });
+
+    it('top left of reflected almost empty array has two neighbors', () => {
+        let array =  [[false, true],
+                     [false, false]];
+        const cellGrid = new CellGrid({height: 2, width: 2});
+        expect(cellGrid.countNeighbors(array, 0, 0)).toBe(2);
+
+    });
 
     xit('counts center with two neighbors', () => {
         let array = [
