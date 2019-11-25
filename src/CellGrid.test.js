@@ -11,6 +11,31 @@ function touchCell(cellgrid, x, y) {
     aCell1.simulate('click');
 }
 
+function expectStatesAreEqual(givenStates, expectedState) {
+    let match = true;
+    for (let i = 0; i < expectedState.length; i++) {
+        for (let j = 0; j < expectedState[i].length; j++) {
+            if (givenStates[i][j] !== expectedState[i][j]) {
+                console.log("Cell " + i + "," + j + " was "
+                    + givenStates[i][j] + " not " + expectedState[i][j]);
+                match = false
+            }
+        }
+    }
+    expect(match).toBe(true)
+}
+
+function setInitialState(cellgrid, initialState) {
+    for (let i = 0; i < initialState.length; i++) {
+        for (let j = 0; j < initialState[i].length; j++) {
+            if (initialState[i][j]) {
+                touchCell(cellgrid, i, j)
+            }
+        }
+    }
+
+}
+
 describe('cell grid', () => {
     it('renders without crashing', () => {
         shallow(<CellGrid width={2} height={2}/>)
@@ -72,30 +97,50 @@ describe('cell grid', () => {
         expect(cellgrid.state().cellStates[1][1]).toBe(false);
     });
 
-    it('center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+    xit('center cell of 3x3 grid becomes true if it has three true neighbors', () => {
         const cellgrid = shallow(<CellGrid width={3} height={3}/>);
-        touchCell(cellgrid, 0, 0);
-        touchCell(cellgrid, 0, 1);
-        touchCell(cellgrid, 0, 2);
+
+        const initialState = [
+            [true, true, true],
+            [false, false, false],
+            [false, false, false],
+        ];
+        setInitialState(cellgrid, initialState);
 
         let updateButton = cellgrid.find('UpdateButton').at(0);
         updateButton.simulate('click');
 
-        expect(cellgrid.state().cellStates[1][1]).toBe(true);
+        const expectedState = [
+            [false, true, false],
+            [false, true, false],
+            [false, true, false],
+        ];
+        expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
     });
 
-    it('on 4x4 center cell of 3x3 grid becomes true if it has three true neighbors', () => {
+    xit('on 4x4 center cell of 3x3 grid becomes true if it has three true neighbors', () => {
         const cellgrid = shallow(<CellGrid width={4} height={4}/>);
-        touchCell(cellgrid, 1, 1);
-        touchCell(cellgrid, 1, 2);
-        touchCell(cellgrid, 1, 3);
+
+        const initialState = [
+            [false, false, false, false],
+            [false, true, true, true],
+            [false, false, false, false],
+            [false, false, false, false],
+        ];
+        setInitialState(cellgrid, initialState);
 
         let updateButton = cellgrid.find('UpdateButton').at(0);
         updateButton.simulate('click');
 
-        expect(cellgrid.state().cellStates[2][2]).toBe(true);
-    });
+        const expectedState = [
+            [false, false, true, false],
+            [false, false, true, false],
+            [false, false, true, false],
+            [false, false, false, false],
+        ];
 
+        expectStatesAreEqual(cellgrid.state().cellStates, expectedState)
+    });
 
 
 });

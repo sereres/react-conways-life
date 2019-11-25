@@ -46,7 +46,6 @@ class CellGrid extends React.Component {
             let newState = this.copyState(this.state.cellStates);
             newState[row_number][cell_number] = !aliveOrDead;
             this.setState({cellStates: newState});
-            console.log("I was clicked " + row_number + " " + cell_number);
         };
 
         return <Cell key={"cell-" + row_number + "-" + cell_number}
@@ -91,7 +90,7 @@ class CellGrid extends React.Component {
                 if (neighbors >= 2) {
                     nextState[i][j] = true;
                 }
-                if( neighbors === 0 ){
+                if( neighbors < 2 ){
                     nextState[i][j] = false;
                 }
             }
@@ -103,13 +102,15 @@ class CellGrid extends React.Component {
 
     countNeighbors(state, x, y) {
         let neighbors = 0;
+
         for (let i = 0; i < this.props.height; i++) {
             for (let j = 0; j < this.props.width; j++) {
-                if (state[i][j] && i !== x && j !== y) {
+                if (state[i][j] && !(i === x && j === y)) {
                     neighbors++;
                 }
             }
         }
+
         return neighbors;
     }
 }
